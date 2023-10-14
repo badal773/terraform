@@ -2,7 +2,6 @@ aws_region = "ap-south-1"
 
 vpc_cidr_block = "10.0.0.0/16"
 common_tags = {
-  Name                   = "staging-vpc"
   devtron-cicd-component = "owned"
   devtron-email          = "devops@devtron.ai"
 }
