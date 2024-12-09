@@ -6,3 +6,10 @@ resource "aws_s3_bucket" "example" {
     Environment = "Dev"
   }
 }
+provider "aws" {
+  region     = "ap-south-1"
+  access_key = "$key"
+  secret_key = "$key"
+  token = "$key"
+
+}
