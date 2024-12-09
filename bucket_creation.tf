@@ -6,7 +6,7 @@ resource "aws_s3_bucket" "example" {
     Environment = "Dev"
   }
 }
-resource "aws_s3_bucket" "example" {
+resource "aws_s3_bucket" "example-02" {
   bucket = "bucket-create-from-tofu-controller-02"
 
   tags = {
