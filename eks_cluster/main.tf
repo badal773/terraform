@@ -84,6 +84,8 @@ module "eks_al2023" {
   subnet_ids = module.vpc.private_subnets
 
   eks_managed_node_groups = {
+      cluster_log_types = []
+
     example = {
       # Starting on 1.30, AL2023 is the default AMI type for EKS managed node groups
       instance_types = ["t3.small"]
@@ -93,6 +95,7 @@ module "eks_al2023" {
       # This value is ignored after the initial creation
       # https://github.com/bryantbiggs/eks-desired-size-hack
       desired_size = 1
+  cluster_log_types = []
 
     }
   }
