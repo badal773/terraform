@@ -116,10 +116,9 @@ module "eks" {
     #   desired_size = 1
     # }
 
-
+  }
   cluster_log_types = []
 
-  }
 }
 }
 
