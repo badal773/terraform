@@ -89,7 +89,7 @@ module "eks_al2023" {
       max_size = 1
       # This value is ignored after the initial creation
       # https://github.com/bryantbiggs/eks-desired-size-hack
-      desired_size = 1
+      desired_size = 10
 
 
       cluster_log_types = []
