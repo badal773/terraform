@@ -36,6 +36,7 @@ module "vpc" {
   enable_nat_gateway   = false
   single_nat_gateway   = false
   enable_dns_hostnames = true
+  disableLogs= true
 
   public_subnet_tags = {
     "kubernetes.io/role/elb" = 1
@@ -76,8 +77,8 @@ module "eks" {
       instance_types = ["t3.small"]
 
       min_size     = 1
-      max_size     = 3
-      desired_size = 2
+      max_size     = 1
+      desired_size = 1
     }
 
     # two = {
@@ -90,4 +91,8 @@ module "eks" {
     #   desired_size = 1
     # }
   }
+}
+
+resource "aws_cloudwatch_log_group" "this" {
+  count = 0
 }
