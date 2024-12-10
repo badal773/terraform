@@ -63,6 +63,8 @@ module "vpc" {
     "kubernetes.io/role/internal-elb" = 1
   }
 }
+ 
+
 
 module "eks" {
   source  = "terraform-aws-modules/eks/aws"
@@ -73,10 +75,12 @@ module "eks" {
 
   cluster_endpoint_public_access           = true
   enable_cluster_creator_admin_permissions = false
-  
+
   
   cluster_addons = {
     aws-ebs-csi-driver = {
+          enabled = false
+
     }
   }
 
@@ -85,7 +89,6 @@ module "eks" {
 
   eks_managed_node_group_defaults = {
     ami_type = "AL2_x86_64"
-    iam_role_additional_policies = {}
 
   }
 
@@ -98,9 +101,11 @@ module "eks" {
       min_size     = 1
       max_size     = 1
       desired_size = 1
-      
-    }
 
+      iam_role_additional_policies = {
+        "ViewOnlyAccessPolicy" = "arn:aws:iam::aws:policy/job-function/ViewOnlyAccess"
+      }
+    
     # two = {
     #   name = "node-group-2"
 
@@ -115,5 +120,6 @@ module "eks" {
   cluster_log_types = []
 
   }
+}
 }
 
