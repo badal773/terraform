@@ -65,7 +65,7 @@ module "vpc" {
 }
 
 
-module "eks_al2023" {
+module "eks" {
   source  = "terraform-aws-modules/eks/aws"
   version = "~> 20.0"
 
