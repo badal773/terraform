@@ -55,7 +55,9 @@ module "eks" {
 
   cluster_endpoint_public_access           = true
   enable_cluster_creator_admin_permissions = false
-  cluster_create_log_group      = false
+  
+  # Disable CloudWatch logging
+  enable_logging = false
 
   cluster_addons = {
     aws-ebs-csi-driver = {
@@ -93,6 +95,3 @@ module "eks" {
   }
 }
 
-resource "aws_cloudwatch_log_group" "this" {
-  count = 0
-}
