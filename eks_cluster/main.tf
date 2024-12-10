@@ -22,7 +22,7 @@ data "aws_availability_zones" "available" {
 
 locals {
   name   = "tofu-controller"
-  region = "ap-south-1"
+  region = "us-east-2"
 
   vpc_cidr = "10.0.0.0/16"
   azs      = slice(data.aws_availability_zones.available.names, 0, 3)
@@ -48,7 +48,6 @@ module "vpc" {
   azs             = local.azs
   private_subnets = [for k, v in local.azs : cidrsubnet(local.vpc_cidr, 4, k)]
   public_subnets  = [for k, v in local.azs : cidrsubnet(local.vpc_cidr, 8, k + 48)]
-  intra_subnets   = [for k, v in local.azs : cidrsubnet(local.vpc_cidr, 8, k + 52)]
 
   enable_nat_gateway = false
   single_nat_gateway = false
@@ -74,8 +73,6 @@ module "eks_al2023" {
 
   # EKS Addons
   cluster_addons = {
-    coredns                = {}
-    eks-pod-identity-agent = {}
     kube-proxy             = {}
     vpc-cni                = {}
   }
@@ -86,7 +83,7 @@ module "eks_al2023" {
   self_managed_node_groups = {
     example = {
       ami_type      = "AL2023_x86_64_STANDARD"
-      instance_type = "m6i.large"
+      instance_type = "t3.small"
 
       min_size = 1
       max_size = 1
