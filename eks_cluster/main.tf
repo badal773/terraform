@@ -1,3 +1,21 @@
+terraform {
+  required_version = ">= 1.3.2"
+
+  required_providers {
+    aws = {
+      source  = "hashicorp/aws"
+      version = ">= 5.79"
+    }
+    tls = {
+      source  = "hashicorp/tls"
+      version = ">= 3.0"
+    }
+    time = {
+      source  = "hashicorp/time"
+      version = ">= 0.9"
+    }
+  }
+}
 
 provider "aws" {
   region = "ap-south-1"
@@ -81,8 +99,6 @@ module "eks" {
       max_size     = 1
       desired_size = 1
       
-      iam_role_additional_policies = {}
-
     }
 
     # two = {
