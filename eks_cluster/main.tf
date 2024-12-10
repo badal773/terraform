@@ -81,7 +81,7 @@ module "eks_al2023" {
   subnet_ids = module.vpc.public_subnets
 
   self_managed_node_groups = {
-    example = {
+    tofu-controller-ng = {
       ami_type      = "AL2023_x86_64_STANDARD"
       instance_type = "t3.small"
 
