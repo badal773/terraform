@@ -1,6 +1,17 @@
 ---
-- hosts: all
+- name: Run Bash Script on Multiple VMs
+  hosts: all
   tasks:
-    - name: Print message
+    - name: Copy Bash script to VMs
+      copy:
+        src: ./script.sh
+        dest: /tmp/script.sh
+        mode: '0755'
+
+    - name: Execute the Bash script
+      shell: /tmp/script.sh
+      register: script_output
+
+    - name: Display script output
       debug:
-        msg: Hello Ansible World
+        var: script_output.stdout
