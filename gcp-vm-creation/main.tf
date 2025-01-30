@@ -64,47 +64,8 @@ resource "google_compute_instance"  "vm_instance" {
   metadata = {
     ssh-keys = "${var.gcp_ssh_user}:${file(var.gcp_ssh_pub_key_file)}"
   }
-      metadata_startup_script = <<-EOT
-      #!/bin/bash
-      set -e  # Exit immediately if a command exits with a non-zero status
-      set -x  # Enable debugging (print commands as they are executed)
-
-      # Log file path
-      LOGFILE="/tmp/initscript.log"
-      exec &>> $LOGFILE  # Append both stdout and stderr to the log file
-
-      echo "Initialization script started at $(date)"
-
-      # Install MicroK8s
-      echo "Installing MicroK8s..."
-      snap install microk8s --classic --channel=1.30 || { echo "MicroK8s installation failed"; exit 1; }
-      echo "MicroK8s installation completed at $(date)"
-
-      # Setup aliases for kubectl and helm
-      echo "Setting up aliases for kubectl and helm..."
-      echo "alias kubectl='microk8s kubectl'" >> /home/ubuntu/.bashrc
-      echo "alias helm='microk8s helm3'" >> /home/ubuntu/.bashrc
-      echo "Aliases added successfully."
-
-      # Add user to microk8s group and set ownership of .kube directory
-      echo "Configuring MicroK8s group and permissions..."
-      usermod -a -G microk8s devtron || { echo "Failed to add user to microk8s group"; exit 1; }
-      # chown -f -R devtron ~/home/devtron 
-      echo "User configuration completed."
-
-      # Enable necessary MicroK8s services
-      echo "Enabling MicroK8s services..."
-      microk8s enable dns storage helm3 ingress metrics-server || { echo "Failed to enable MicroK8s services"; exit 1; }
-      echo "MicroK8s services enabled successfully."
-
-      # Install Devtron
-      echo "Installing Devtron using Helm..."
-      microk8s helm3 repo add devtron https://helm.devtron.ai || { echo "Failed to add Helm repo"; exit 1; }
-      microk8s helm3 repo update devtron
-      echo "Initialization script completed at $(date)"
-
-      EOT
 }
+
 # Variables
 variable "machine_name" {
   description = "The name of the instance"
