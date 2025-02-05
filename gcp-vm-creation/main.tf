@@ -44,6 +44,18 @@ resource "google_compute_instance"  "vm_instance" {
   zone         = var.zone_name
 
 
+# Explanation of Changes:
+# preemptible = true → Enables Spot (previously called preemptible) instances.
+# automatic_restart = false → Ensures the instance does not restart automatically when stopped.
+# provisioning_model = "SPOT" → (Optional but recommended) Explicitly defines the provisioning model.
+
+
+  scheduling {
+    preemptible = true   # Enable Spot instance (preemptible)
+    automatic_restart = false  # Recommended for Spot instances
+    provisioning_model = "SPOT" # Explicitly define Spot provisioning
+  }
+
   # Set a custom hostname below
   hostname = var.host_name
 
