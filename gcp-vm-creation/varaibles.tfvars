@@ -1,0 +1,12 @@
+machine_name= ""
+region_name="asia-south1"
+zone_name="asia-south1-a"
+instance_type="n2-standard-4"
+project_id=""
+vpc_name=""
+subnet_name="public-subnet-01"
+disk_size="50"
+host_name="ubuntu.internal"
+
+gcp_ssh_pub_key_file="~/.ssh/id_rsa.pub"
+gcp_ssh_user="devtron"
